@@ -1,24 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import { useEffect, useState } from "react";
+import "../src/App.css"
 function App() {
+
+  const [likes, setLikes] = useState(0)
+  const [input, setInput] = useState('Nada')
+
+  function darOLike() {
+    setLikes(prevLikes => prevLikes + 1);
+  }
+
+  // useEffect(() => {
+  //   alert("Esse é um exemplo sem array de dependência")
+  // });
+
+  // useEffect(() => {
+  //   alert("Esse é um exemplo com array de dependência vazio (carrega só ao incializar a página)")
+  // }, []);
+
+  useEffect(() => {
+    if (likes >= 5 ) {
+      alert("Parabéns! Esse é um exemplo com array de dependência que observa a aleração de um state");
+    }
+  }, [likes])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <p>Quantidade de likes: {likes}</p>
+      <button onClick={darOLike}>Like</button>
+
+      <p>O que você digitou no input: {input}</p>
+      <input onChange={event => setInput(event.target.value)} type="text" />
     </div>
   );
 }
